@@ -14,4 +14,4 @@ Re-reading long lecture notes before exams is slow and easy to zone out on. Supe
 Built by
 Sanuthi, Pahandi & Binara  built for our own classes, shared in case it helps others too.
 Status
-🚧 Early development — starting with Web Dev notes, planning to expand to other subjects.
+🚧 Early development: starting with our uni notes, planning to expand to other subjects.
