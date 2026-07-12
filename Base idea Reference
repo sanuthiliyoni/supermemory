@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Quick Reference – Exam Cheat Sheet</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
+      color: #1a1a2e;
+      padding: 24px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      color: #fff;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      padding: 18px 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    h1 span { color: #e94560; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--accent, #0f3460);
+    }
+
+    .card h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent, #0f3460);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .tag-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .tag {
+      background: #1a1a2e;
+      color: #7fdbff;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .desc {
+      color: #444;
+      font-size: 13px;
+    }
+
+    .note {
+      background: #fff8e1;
+      border-left: 3px solid #f9a825;
+      padding: 6px 10px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+      color: #5d4037;
+      margin-top: 8px;
+    }
+
+    /* accent colours per section */
+    .card.structure  { --accent: #0f3460; }
+    .card.text       { --accent: #c62828; }
+    .card.css        { --accent: #6a1b9a; }
+    .card.lists      { --accent: #00695c; }
+    .card.tables     { --accent: #e65100; }
+    .card.images     { --accent: #1565c0; }
+    .card.links      { --accent: #2e7d32; }
+    .card.forms      { --accent: #4527a0; }
+    .card.layout     { --accent: #00838f; }
+    .card.svg        { --accent: #ad1457; }
+
+    code {
+      background: #f3f3f3;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #c62828;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 24px;
+      color: #888;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>HTML Quick Reference &nbsp;<span>📄 Exam Cheat Sheet</span></h1>
+
+<div class="grid">
+
+  <!-- ── DOCUMENT STRUCTURE ── -->
+  <div class="card structure">
+    <h2>📁 Document Structure</h2>
+    <div class="tag-row"><span class="tag">&lt;!doctype html&gt;</span><span class="desc">Tells the browser this is HTML5 – always the FIRST line</span></div>
+    <div class="tag-row"><span class="tag">&lt;html lang="en"&gt;</span><span class="desc">Root element; <code>lang</code> sets the language</span></div>
+    <div class="tag-row"><span class="tag">&lt;head&gt;</span><span class="desc">Contains meta-information (not visible on page)</span></div>
+    <div class="tag-row"><span class="tag">&lt;meta charset="UTF-8"&gt;</span><span class="desc">Character encoding – supports all symbols</span></div>
+    <div class="tag-row"><span class="tag">&lt;meta name="viewport"&gt;</span><span class="desc">Makes the page responsive on mobile screens</span></div>
+    <div class="tag-row"><span class="tag">&lt;title&gt;</span><span class="desc">Text shown in the browser tab</span></div>
+    <div class="tag-row"><span class="tag">&lt;body&gt;</span><span class="desc">Everything visible on the page goes here</span></div>
+    <div class="tag-row"><span class="tag">&lt;!-- comment --&gt;</span><span class="desc">A comment – never displayed on the page</span></div>
+  </div>
+
+  <!-- ── TEXT FORMATTING ── -->
+  <div class="card text">
+    <h2>✏️ Text Formatting</h2>
+    <div class="tag-row"><span class="tag">&lt;h1&gt;–&lt;h6&gt;</span><span class="desc">Headings – h1 is the largest, h6 the smallest</span></div>
+    <div class="tag-row"><span class="tag">&lt;p&gt;</span><span class="desc">Paragraph – adds space above and below text</span></div>
+    <div class="tag-row"><span class="tag">&lt;br&gt;</span><span class="desc">Line break (self-closing, no end tag needed)</span></div>
+    <div class="tag-row"><span class="tag">&lt;hr&gt;</span><span class="desc">Horizontal rule – draws a dividing line</span></div>
+    <div class="tag-row"><span class="tag">&lt;b&gt;</span><span class="desc">Bold text (visual only)</span></div>
+    <div class="tag-row"><span class="tag">&lt;i&gt;</span><span class="desc">Italic text (visual only)</span></div>
+    <div class="tag-row"><span class="tag">&lt;small&gt;</span><span class="desc">Smaller text than surrounding content</span></div>
+    <div class="tag-row"><span class="tag">&lt;sub&gt;</span><span class="desc">Subscript – e.g. H<sub>2</sub>O</span></div>
+    <div class="tag-row"><span class="tag">&lt;sup&gt;</span><span class="desc">Superscript – e.g. x<sup>2</sup></span></div>
+    <div class="tag-row"><span class="tag">&lt;strong&gt;</span><span class="desc">Important text (bold + semantic meaning)</span></div>
+    <div class="tag-row"><span class="tag">&lt;em&gt;</span><span class="desc">Emphasised text (italic + semantic meaning)</span></div>
+    <div class="tag-row"><span class="tag">&lt;var&gt;</span><span class="desc">Mathematical/programming variable</span></div>
+    <div class="tag-row"><span class="tag">&lt;code&gt;</span><span class="desc">Inline code snippet – monospace font</span></div>
+    <div class="tag-row"><span class="tag">&lt;dfn&gt;</span><span class="desc">Definition of a term</span></div>
+    <div class="tag-row"><span class="tag">&lt;cite&gt;</span><span class="desc">Citation of a creative work or book</span></div>
+    <div class="tag-row"><span class="tag">&lt;address&gt;</span><span class="desc">Contact / address information</span></div>
+    <div class="note">Special characters: <code>&amp;lt;</code> → &lt; &nbsp; <code>&amp;gt;</code> → &gt; &nbsp; <code>&amp;amp;</code> → &amp; &nbsp; <code>&amp;copy;</code> → © &nbsp; <code>&amp;nbsp;</code> → non-breaking space</div>
+  </div>
+
+  <!-- ── CSS STYLING ── -->
+  <div class="card css">
+    <h2>🎨 CSS – Three Ways to Style</h2>
+    <div class="tag-row"><span class="tag">Inline</span><span class="desc"><code>style="color:red;"</code> directly on the tag – highest priority</span></div>
+    <div class="tag-row"><span class="tag">Embedded</span><span class="desc"><code>&lt;style&gt;</code> block inside <code>&lt;head&gt;</code></span></div>
+    <div class="tag-row"><span class="tag">External</span><span class="desc"><code>&lt;link rel="stylesheet" href="style.css"&gt;</code> in <code>&lt;head&gt;</code></span></div>
+    <div class="note" style="margin-bottom:8px;">Priority: Inline &gt; Embedded &gt; External</div>
+
+    <div class="tag-row"><span class="tag">h1 { }</span><span class="desc">Element selector – targets all &lt;h1&gt; tags</span></div>
+    <div class="tag-row"><span class="tag">.class { }</span><span class="desc">Class selector – targets <code>class="name"</code></span></div>
+    <div class="tag-row"><span class="tag">#id { }</span><span class="desc">ID selector – targets ONE unique <code>id="name"</code></span></div>
+    <div class="tag-row"><span class="tag">h1, h2 { }</span><span class="desc">Group selector – styles multiple elements at once</span></div>
+    <div class="tag-row"><span class="tag">p em { }</span><span class="desc">Descendant selector – &lt;em&gt; inside &lt;p&gt;</span></div>
+    <div class="tag-row"><span class="tag">* { }</span><span class="desc">Universal selector – targets every element</span></div>
+    <div class="tag-row"><span class="tag">h1:hover { }</span><span class="desc">Pseudo-class – style when mouse hovers</span></div>
+    <div class="tag-row"><span class="tag">&lt;span&gt;</span><span class="desc">Inline container – style part of text without a line break</span></div>
+    <div class="tag-row"><span class="tag">&lt;div&gt;</span><span class="desc">Block container – groups elements, starts a new line</span></div>
+  </div>
+
+  <!-- ── CSS PROPERTIES ── -->
+  <div class="card css">
+    <h2>🎨 Key CSS Properties</h2>
+    <div class="tag-row"><span class="tag">color</span><span class="desc">Text colour: <code>red</code>, <code>#ff0000</code>, <code>rgb(255,0,0)</code></span></div>
+    <div class="tag-row"><span class="tag">background-color</span><span class="desc">Background fill colour</span></div>
+    <div class="tag-row"><span class="tag">background-image</span><span class="desc"><code>url(image.jpg)</code> – sets a background image</span></div>
+    <div class="tag-row"><span class="tag">font-size</span><span class="desc">Text size in px, pt, em, etc.</span></div>
+    <div class="tag-row"><span class="tag">font-weight</span><span class="desc"><code>bold</code> or <code>normal</code></span></div>
+    <div class="tag-row"><span class="tag">text-align</span><span class="desc"><code>left</code> / <code>center</code> / <code>right</code></span></div>
+    <div class="tag-row"><span class="tag">border</span><span class="desc"><code>3px solid red</code> – width, style, colour</span></div>
+    <div class="tag-row"><span class="tag">border-radius</span><span class="desc">Rounds the corners of a border</span></div>
+    <div class="tag-row"><span class="tag">padding</span><span class="desc">Space INSIDE the border (between content & border)</span></div>
+    <div class="tag-row"><span class="tag">margin</span><span class="desc">Space OUTSIDE the border (between elements)</span></div>
+    <div class="tag-row"><span class="tag">width / height</span><span class="desc">Set element dimensions</span></div>
+    <div class="tag-row"><span class="tag">opacity</span><span class="desc">0 = invisible, 1 = fully visible</span></div>
+    <div class="note">Box Model order (outside→in): margin → border → padding → content</div>
+  </div>
+
+  <!-- ── LISTS ── -->
+  <div class="card lists">
+    <h2>📋 Lists</h2>
+    <div class="tag-row"><span class="tag">&lt;ul&gt;</span><span class="desc">Unordered list – bullet points by default</span></div>
+    <div class="tag-row"><span class="tag">&lt;ol&gt;</span><span class="desc">Ordered list – numbers by default</span></div>
+    <div class="tag-row"><span class="tag">&lt;li&gt;</span><span class="desc">List item – used inside &lt;ul&gt; or &lt;ol&gt;</span></div>
+    <div class="tag-row"><span class="tag">&lt;dl&gt;</span><span class="desc">Description list – pairs of terms and definitions</span></div>
+    <div class="tag-row"><span class="tag">&lt;dt&gt;</span><span class="desc">Definition Term – the word being defined</span></div>
+    <div class="tag-row"><span class="tag">&lt;dd&gt;</span><span class="desc">Definition Description – the explanation</span></div>
+    <div class="note">
+      <strong>ul styles:</strong> <code>list-style-type: disc | circle | square | none</code><br>
+      <strong>ol styles:</strong> <code>upper-alpha | lower-alpha | upper-roman | lower-roman</code><br>
+      <strong>ol attrs:</strong> <code>start="2"</code> begins at 2 &nbsp;|&nbsp; <code>&lt;li value="1"&gt;</code> resets count<br>
+      Nesting: put a &lt;ul&gt; or &lt;ol&gt; <em>inside</em> an &lt;li&gt; to create sub-lists
+    </div>
+  </div>
+
+  <!-- ── TABLES ── -->
+  <div class="card tables">
+    <h2>📊 Tables</h2>
+    <div class="tag-row"><span class="tag">&lt;table&gt;</span><span class="desc">Creates the table wrapper</span></div>
+    <div class="tag-row"><span class="tag">&lt;caption&gt;</span><span class="desc">Title shown above the table</span></div>
+    <div class="tag-row"><span class="tag">&lt;tr&gt;</span><span class="desc">Table Row – one horizontal row</span></div>
+    <div class="tag-row"><span class="tag">&lt;th&gt;</span><span class="desc">Table Header cell – bold & centred by default</span></div>
+    <div class="tag-row"><span class="tag">&lt;td&gt;</span><span class="desc">Table Data cell – regular data</span></div>
+    <div class="tag-row"><span class="tag">colspan="2"</span><span class="desc">Merge 2 columns horizontally</span></div>
+    <div class="tag-row"><span class="tag">rowspan="2"</span><span class="desc">Merge 2 rows vertically</span></div>
+    <div class="note">
+      <code>border-collapse: collapse</code> – removes double borders<br>
+      <code>vertical-align: bottom</code> – align text in a cell<br>
+      <code>text-align: right</code> – align cell text<br>
+      Apply colours with <code>background-color</code> on &lt;tr&gt;, &lt;td&gt;, or &lt;th&gt;
+    </div>
+  </div>
+
+  <!-- ── IMAGES ── -->
+  <div class="card images">
+    <h2>🖼️ Images</h2>
+    <div class="tag-row"><span class="tag">&lt;img&gt;</span><span class="desc">Embeds an image (self-closing – no end tag)</span></div>
+    <div class="tag-row"><span class="tag">src=""</span><span class="desc">Path or URL to the image file</span></div>
+    <div class="tag-row"><span class="tag">alt=""</span><span class="desc">Alternative text if image fails to load (also for screen readers)</span></div>
+    <div class="tag-row"><span class="tag">width="" height=""</span><span class="desc">Set display size in pixels</span></div>
+    <div class="tag-row"><span class="tag">style="float:right"</span><span class="desc">Wraps text around the image</span></div>
+    <div class="tag-row"><span class="tag">opacity: 0.5</span><span class="desc">CSS – makes image semi-transparent</span></div>
+    <div class="tag-row"><span class="tag">usemap="#name"</span><span class="desc">Links an image to a clickable map</span></div>
+    <div class="tag-row"><span class="tag">&lt;map&gt;&lt;area&gt;</span><span class="desc">Define clickable regions on an image map</span></div>
+    <div class="note">
+      <strong>area shapes:</strong> <code>shape="rect"</code> coords="x1,y1,x2,y2" &nbsp;|&nbsp;
+      <code>shape="circle"</code> coords="x,y,r"<br>
+      <strong>Formats:</strong> JPEG (photos) · PNG (transparency) · GIF (animation)<br>
+      Background: <code>background-image: url(img.jpg); background-size: cover;</code>
+    </div>
+  </div>
+
+  <!-- ── LINKS ── -->
+  <div class="card links">
+    <h2>🔗 Links &amp; Navigation</h2>
+    <div class="tag-row"><span class="tag">&lt;a href=""&gt;</span><span class="desc">Hyperlink – wraps text or images</span></div>
+    <div class="tag-row"><span class="tag">href="page.html"</span><span class="desc">Link to another local HTML file</span></div>
+    <div class="tag-row"><span class="tag">href="https://..."</span><span class="desc">Link to an external website</span></div>
+    <div class="tag-row"><span class="tag">target="_blank"</span><span class="desc">Opens link in a NEW tab</span></div>
+    <div class="tag-row"><span class="tag">href="#id"</span><span class="desc">Internal jump-link to an element with that id</span></div>
+    <div class="tag-row"><span class="tag">href="mailto:a@b.com"</span><span class="desc">Opens the user's email client</span></div>
+    <div class="tag-row"><span class="tag">&lt;meta http-equiv="refresh"&gt;</span><span class="desc">Auto-redirects after N seconds: <code>content="5;url=..."</code></span></div>
+    <div class="tag-row"><span class="tag">&lt;iframe src=""&gt;</span><span class="desc">Embeds another webpage inside the current page</span></div>
+    <div class="note">
+      Link pseudo-classes (must be in this order):<br>
+      <code>a:link</code> (unvisited) → <code>a:visited</code> → <code>a:hover</code> → <code>a:active</code>
+    </div>
+  </div>
+
+  <!-- ── CSS POSITIONING ── -->
+  <div class="card layout">
+    <h2>📐 CSS Positioning &amp; Layout</h2>
+    <div class="tag-row"><span class="tag">position: static</span><span class="desc">Default – normal document flow, ignores top/left</span></div>
+    <div class="tag-row"><span class="tag">position: relative</span><span class="desc">Offset FROM its normal position using top/left/etc.</span></div>
+    <div class="tag-row"><span class="tag">position: absolute</span><span class="desc">Removed from flow – positioned relative to nearest positioned parent</span></div>
+    <div class="tag-row"><span class="tag">position: fixed</span><span class="desc">Stays fixed on screen even when scrolling</span></div>
+    <div class="tag-row"><span class="tag">float: left/right</span><span class="desc">Makes element float; text wraps around it</span></div>
+    <div class="tag-row"><span class="tag">clear: left/right/both</span><span class="desc">Stops an element from sitting next to a float</span></div>
+    <div class="note">
+      Use <code>position: relative</code> on the parent before using <code>position: absolute</code> on a child – otherwise it positions relative to the whole page.
+    </div>
+  </div>
+
+  <!-- ── FORMS ── -->
+  <div class="card forms">
+    <h2>📝 HTML Forms</h2>
+    <div class="tag-row"><span class="tag">&lt;form&gt;</span><span class="desc"><code>action="url"</code> – where data is sent &nbsp;|&nbsp; <code>method="get/post"</code></span></div>
+    <div class="tag-row"><span class="tag">&lt;label&gt;</span><span class="desc">Describes an input. Use <code>for="id"</code> to link to an input</span></div>
+    <div class="tag-row"><span class="tag">type="text"</span><span class="desc">Single-line text input</span></div>
+    <div class="tag-row"><span class="tag">type="password"</span><span class="desc">Text input that hides characters</span></div>
+    <div class="tag-row"><span class="tag">type="email"</span><span class="desc">Validates email format automatically</span></div>
+    <div class="tag-row"><span class="tag">type="url"</span><span class="desc">Validates URL format automatically</span></div>
+    <div class="tag-row"><span class="tag">type="tel"</span><span class="desc">Phone number input</span></div>
+    <div class="tag-row"><span class="tag">type="number"</span><span class="desc">Number spinner; use <code>min</code>, <code>max</code>, <code>step</code></span></div>
+    <div class="tag-row"><span class="tag">type="radio"</span><span class="desc">One choice from a group (same <code>name</code> = same group)</span></div>
+    <div class="tag-row"><span class="tag">type="checkbox"</span><span class="desc">Multiple choices – can select many</span></div>
+    <div class="tag-row"><span class="tag">type="date"</span><span class="desc">Date picker; use <code>min</code>, <code>max</code></span></div>
+    <div class="tag-row"><span class="tag">type="datetime-local"</span><span class="desc">Date + time picker</span></div>
+    <div class="tag-row"><span class="tag">type="week"</span><span class="desc">Week picker</span></div>
+    <div class="tag-row"><span class="tag">type="range"</span><span class="desc">Slider; use <code>min</code>, <code>max</code>, <code>step</code>, <code>value</code></span></div>
+    <div class="tag-row"><span class="tag">type="color"</span><span class="desc">Colour picker</span></div>
+    <div class="tag-row"><span class="tag">type="hidden"</span><span class="desc">Invisible field – sends data without showing it</span></div>
+    <div class="tag-row"><span class="tag">type="submit"</span><span class="desc">Button that submits the form</span></div>
+    <div class="tag-row"><span class="tag">type="reset"</span><span class="desc">Button that clears all form fields</span></div>
+    <div class="tag-row"><span class="tag">&lt;button&gt;</span><span class="desc">Clickable button (also submits if inside a form)</span></div>
+    <div class="tag-row"><span class="tag">&lt;textarea&gt;</span><span class="desc">Multi-line text input; <code>rows</code> and <code>cols</code> set size</span></div>
+    <div class="tag-row"><span class="t
