@@ -302,4 +302,50 @@
     <div class="tag-row"><span class="tag">type="reset"</span><span class="desc">Button that clears all form fields</span></div>
     <div class="tag-row"><span class="tag">&lt;button&gt;</span><span class="desc">Clickable button (also submits if inside a form)</span></div>
     <div class="tag-row"><span class="tag">&lt;textarea&gt;</span><span class="desc">Multi-line text input; <code>rows</code> and <code>cols</code> set size</span></div>
-    <div class="tag-row"><span class="t
+    <div class="tag-row"><span class="tag">&lt;select&gt;&lt;option&gt;</span><span class="desc">Drop-down list; <code>multiple</code> attr allows multi-select</span></div>
+    <div class="tag-row"><span class="tag">&lt;datalist&gt;</span><span class="desc">Autocomplete suggestions for a text input</span></div>
+    <div class="tag-row"><span class="tag">&lt;fieldset&gt;</span><span class="desc">Groups related inputs with a box border</span></div>
+    <div class="tag-row"><span class="tag">&lt;legend&gt;</span><span class="desc">Title/caption for a &lt;fieldset&gt;</span></div>
+    <div class="note">
+      Useful input attributes:<br>
+      <code>placeholder</code> – hint text inside field &nbsp;|&nbsp;
+      <code>required</code> – must be filled before submit<br>
+      <code>readonly</code> – visible but can't be edited &nbsp;|&nbsp;
+      <code>autofocus</code> – auto-selects this field on load<br>
+      <code>checked</code> – pre-selects a radio/checkbox &nbsp;|&nbsp;
+      <code>selected</code> – pre-selects an &lt;option&gt;<br>
+      <code>maxlength</code> – max number of characters &nbsp;|&nbsp;
+      <code>size</code> – visible width of text box<br>
+      Style inputs by type: <code>input[type="text"] { }</code><br>
+      Email form: <code>action="mailto:you@email.com" enctype="text/plain"</code>
+    </div>
+  </div>
+
+  <!-- ── SVG ── -->
+  <div class="card svg">
+    <h2>🔷 SVG (Scalable Vector Graphics)</h2>
+    <div class="tag-row"><span class="tag">&lt;svg&gt;</span><span class="desc">Container for all SVG shapes; set <code>width</code> and <code>height</code></span></div>
+    <div class="tag-row"><span class="tag">&lt;rect&gt;</span><span class="desc">Rectangle: <code>x y width height</code> &nbsp;|&nbsp; <code>rx ry</code> for rounded corners</span></div>
+    <div class="tag-row"><span class="tag">&lt;circle&gt;</span><span class="desc">Circle: <code>cx cy</code> (centre) <code>r</code> (radius)</span></div>
+    <div class="tag-row"><span class="tag">&lt;ellipse&gt;</span><span class="desc">Ellipse: <code>cx cy rx ry</code></span></div>
+    <div class="tag-row"><span class="tag">&lt;line&gt;</span><span class="desc">Line: <code>x1 y1 x2 y2</code> – two end points</span></div>
+    <div class="tag-row"><span class="tag">&lt;polyline&gt;</span><span class="desc">Connected lines: <code>points="x1 y1 x2 y2 ..."</code></span></div>
+    <div class="tag-row"><span class="tag">&lt;polygon&gt;</span><span class="desc">Closed shape from points (last connects to first)</span></div>
+    <div class="tag-row"><span class="tag">&lt;path&gt;</span><span class="desc"><code>d="M x y L x y Z"</code> – Move, Line, Close (very flexible)</span></div>
+    <div class="tag-row"><span class="tag">&lt;text&gt;</span><span class="desc">SVG text: <code>x y font-size text-anchor fill</code></span></div>
+    <div class="tag-row"><span class="tag">&lt;g id=""&gt;</span><span class="desc">Group element – apply transform or style to all children at once</span></div>
+    <div class="note">
+      Common SVG attributes: <code>fill</code> (inside colour) · <code>stroke</code> (border colour) · <code>stroke-width</code><br>
+      Style with CSS using <code>#id</code> or <code>.class</code> selectors<br>
+      Use JS: <code>document.getElementById("id").addEventListener("mouseover", fn)</code> to add interactivity
+    </div>
+  </div>
+
+</div><!-- end grid -->
+
+<footer>
+  HTML Quick Reference &nbsp;·&nbsp; All tags drawn from your course files &nbsp;·&nbsp; Good luck on your exam! 🎓
+</footer>
+
+</body>
+</html>
