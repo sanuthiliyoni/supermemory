@@ -16,4 +16,5 @@ Sanuthi, Pahandi & Binara  built for our own classes, shared in case it helps ot
 Status
 🚧 Early development: starting with our uni notes, planning to expand to other subjects.
 
-progress on - July 13th 
+progress on - July 13th (sanuthi)
+progress on - July 13th (pahandi)
