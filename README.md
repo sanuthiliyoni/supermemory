@@ -15,16 +15,4 @@ Built by
 Sanuthi, Pahandi & Binara  built for our own classes, shared in case it helps others too.
 Status
 🚧 Early development: starting with our uni notes, planning to expand to other subjects.
-
-progress on - July 13th (sanuthi)
-progress on - July 13th (pahandi)
-progress on - July 14th (Sanuthi)
-progress on - July 17th (Sanuthi)
-progress on - July 18th (Sanuthi)
-progress on - July 19th (Sanuthi)
-progress on - July 20th (Sanuthi)
-progress on - July 21th (Sanuthi)
-progress on - July 23th (Sanuthi)
-progress on - July 24th (Sanuthi)
-progress on - July 25th (Sanuthi)
-progress on - July 26th (Sanuthi)
+progress on - July 28th (Sanuthi)
