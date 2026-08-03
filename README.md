@@ -15,5 +15,4 @@ Built by
 Sanuthi, Pahandi & Binara  built for our own classes, shared in case it helps others too.
 Status
 🚧 Early development: starting with our uni notes, planning to expand to other subjects.
-progress on - July 28th (Sanuthi)
 
