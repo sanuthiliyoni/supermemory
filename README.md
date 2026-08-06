@@ -13,6 +13,6 @@ Why we built this
 Re-reading long lecture notes before exams is slow and easy to zone out on. Supermemory compresses notes into quick summaries with hands-on examples, so studying is faster and sticks better.
 Built by
 Sanuthi, Pahandi & Binara  built for our own classes, shared in case it helps others too.
-Status
+Status : 
 🚧 Early development: starting with our uni notes, planning to expand to other subjects.
 
