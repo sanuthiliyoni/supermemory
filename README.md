@@ -6,7 +6,7 @@ Example
 Our first version uses Web Dev notes as a test case:
 
 Uploads a full set of HTML notes
-Generates a summary page listing all HTML tags
+Generates a summary page listing all HTML tags 
 Tap any tag → see a live example of it in action 
 
 Why we built this
