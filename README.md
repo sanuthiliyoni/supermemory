@@ -1,4 +1,4 @@
-# supermemory
+ # supermemory
 
 Supermemory turns your lecture notes into a clean, interactive study page. Upload your notes, and it automatically generates short, simplified summaries broken down topic by topic so you can review faster without rereading everything.
 Tap on any topic to see a real example, so you're not just reading a definition but actually seeing how it works.
