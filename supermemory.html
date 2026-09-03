@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supermemory — notes that teach themselves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --paper: #F2ECDC;
+    --paper-dim: #E9E1CB;
+    --ink: #23201A;
+    --ink-soft: #55503F;
+    --board: #23201A;
+    --highlight: #F2C230;
+    --marker: #3C5FE0;
+    --marker-dim: #C7D0F5;
+    --line: #C9BEA0;
+    --rule: #B9401E;
+    --radius: 3px;
+    --maxw: 920px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--highlight); color: var(--ink); }
+
+  a{ color: var(--marker); }
+
+  h1, h2, h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    line-height: 1.08;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  code, .mono{
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  /* ---------- layout shell with a ruled notebook margin ---------- */
+
+  .sheet{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 28px 0 52px;
+    position: relative;
+  }
+
+  .sheet::before{
+    /* the red margin rule of a notebook page */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 24px;
+    width: 1px;
+    background: var(--rule);
+    opacity: 0.55;
+  }
+
+  section{
+    padding: 76px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom: none; }
+
+  .tick{
+    position: absolute;
+    left: 18px;
+    width: 13px;
+    height: 1px;
+    background: var(--rule);
+    opacity: 0.55;
+  }
+
+  /* ---------- header ---------- */
+
+  header.sheet{
+    padding: 26px 28px 26px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+  }
+  header.sheet::before{ display: none; }
+
+  .logo{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .logo .dot{
+    color: var(--marker);
+  }
+
+  .status-pill{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--paper-dim);
+  }
+  .status-pill .led{
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rule);
+    margin-right: 7px;
+    position: relative;
+    top: -1px;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero{ padding-top: 88px; }
+
+  .hero h1{
+    font-size: clamp(38px, 5.6vw, 62px);
+    max-width: 12ch;
+  }
+
+  .hero-mark{
+    background: linear-gradient(transparent 62%, var(--highlight) 62%);
+  }
+
+  .hero p.lede{
+    margin: 26px 0 0;
+    max-width: 46ch;
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+
+  .hero-cta{
+    margin-top: 34px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    padding: 13px 22px;
+    border-radius: var(--radius);
+    background: var(--marker);
+    color: var(--paper);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover{ background: #2c4bc4; }
+  .btn:active{ transform: translateY(1px); }
+
+  .btn-ghost{
+    background: none;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 12px 20px;
+  }
+  .btn-ghost:hover{ background: var(--ink); color: var(--paper); }
+
+  .hero-stats{
+    margin-top: 58px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 620px;
+  }
+  .hero-stats div{
+    border-top: 1px solid var(--ink);
+    padding-top: 10px;
+  }
+  .hero-stats .num{
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+  }
+  .hero-stats .cap{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  /* ---------- section headers ---------- */
+
+  .section-head{
+    margin-bottom: 40px;
+  }
+  .section-head h2{
+    font-size: clamp(26px, 3.4vw, 34px);
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 12px 0 0;
+    font-size: 16px;
+  }
+
+  /* ---------- demo section ---------- */
+
+  .demo-frame{
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .demo-bar{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--ink);
+    color: var(--paper-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+  }
+  .demo-bar .fname{
+    color: var(--paper);
+  }
+  .demo-bar .dots{ display: flex; gap: 5px; margin-right: 8px; }
+  .demo-bar .dots span{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(242,236,220,0.35);
+  }
+
+  .demo-body{
+    display: grid;
+    grid-template-columns: 230px 1fr;
+  }
+
+  @media (max-width: 680px){
+    .demo-body{ grid-template-columns: 1fr; }
+  }
+
+  .tag-list{
+    border-right: 1px solid var(--line);
+    padding: 18px 0;
+    max-height: 460px;
+    overflow-y: auto;
+  }
+  @media (max-width: 680px){
+    .tag-list{ border-right: none; border-bottom: 1px solid var(--line); max-height: none; }
+  }
+
+  .tag-group-label{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    padding: 8px 18px 6px;
+    letter-spacing: 0.02em;
+  }
+  .tag-group-label:not(:first-child){ margin-top: 6px; }
+
+  .tag-item{
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 9px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14.5px;
+    color: var(--ink);
+    border-left: 3px solid transparent;
+  }
+  .tag-item:hover{ background: var(--paper-dim); }
+  .tag-item.active{
+    background: var(--paper-dim);
+    border-left-color: var(--marker);
+    color: var(--marker);
+  }
+
+  .tag-detail{
+    padding: 30px 34px;
+  }
+
+  .tag-detail .tag-name{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    color: var(--marker);
+    margin-bottom: 6px;
+  }
+
+  .tag-detail h3{
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .tag-detail .summary{
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-bottom: 26px;
+  }
+
+  .example-label{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  .example-box{
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    background: #fff;
+    margin-bottom: 18px;
+  }
+
+  .code-line{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    background: var(--ink);
+    color: var(--highlight);
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  /* generic reset for elements rendered inside the example box, so the
+     page's own styles don't fight with the tag being demonstrated */
+  .example-box h1, .example-box p, .example-box ul, .example-box table,
+  .example-box button, .example-box input, .example-box a, .example-box div,
+  .example-box form{
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--ink);
+  }
+  .example-box h1{ font-family: 'Fraunces', serif; font-size: 26px; margin: 0; }
+  .example-box p{ margin: 0; }
+  .example-box ul{ margin: 0; padding-left: 20px; }
+  .example-box li{ margin: 4px 0; }
+  .example-box strong{ color: var(--rule); }
+  .example-box em{ color: var(--marker); }
+  .example-box a{ text-decoration: underline; }
+  .example-box button{
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--marker);
+    color: var(--paper);
+    border: none;
+    padding: 9px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .example-box input{
+    font-family: 'IBM Plex Sans', sans-serif;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 14px;
+  }
+  .example-box table{ border-collapse: collapse; font-size: 14px; }
+  .example-box td, .example-box th{
+    border: 1px solid var(--line);
+    padding: 7px 12px;
+    text-align: left;
+  }
+  .example-box .imgbox{
+    width: 100%;
+    max-width: 220px;
+    height: 110px;
+    background: repeating-linear-gradient(45deg, var(--paper-dim), var(--paper-dim) 8px, var(--paper) 8px, var(--paper) 16px);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 8px;
+  }
+  .example-box form{ display: flex; gap: 8px; flex-wrap: wrap; }
+  .example-box div.divdemo{
+    border: 1px dashed var(--marker);
+    padding: 10px;
+    display: inline-block;
+    font-size: 13px;
+    color: var(--marker);
+    margin-right: 8px;
+  }
+
+  /* ---------- why section ---------- */
+
+  .why-body{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 680px){ .why-body{ grid-template-columns: 1fr; } }
+
+  .why-body p{
+    font-size: 17px;
+    max-width: 50ch;
+  }
+  .why-body p + p{ margin-top: 16px; }
+
+  .signoff{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    margin-top: 22px;
+  }
+
+  .before-after{
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .ba-row{ padding: 16px 18px; }
+  .ba-row.before{
+    background: var(--paper-dim);
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--ink);
+  }
+  .ba-row.after{
+    background: #fff;
+  }
+  .ba-tag{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: none;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .ba-after-tag{
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    background: var(--highlight);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+  .ba-after-def{ font-size: 14.5px; }
+
+  /* ---------- roadmap / status ---------- */
+
+  .roadmap{
+    counter-reset: step;
+    max-width: 560px;
+  }
+  .step{
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .step:last-child{ border-bottom: 1px solid var(--line); }
+  .step::before{
+    counter-increment: step;
+    content: counter(step, decimal-leading-zero);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .step.current::before{ color: var(--marker); }
+  .step h4{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15.5px;
+    margin: 0 0 4px;
+  }
+  .step p{ margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+  .step.current h4::after{
+    content: "in progress";
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--marker);
+    background: var(--marker-dim);
+    padding: 2px 7px;
+    border-radius: 999px;
+    margin-left: 10px;
+  }
+
+  .credits{
+    margin-top: 46px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .credits .names{ color: var(--ink); }
+
+  footer.sheet{
+    padding: 30px 28px 40px 52px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  footer.sheet::before{ display: none; }
+
+</style>
+</head>
+<body>
+
+<header class="sheet">
+  <div class="logo">supermemory<span class="dot">.</span></div>
+  <div class="status-pill"><span class="led"></span>early development</div>
+</header>
+
+<main>
+
+  <section class="hero sheet">
+    <div class="tick" style="top: 92px;"></div>
+    <h1>Your notes,<br>minus the <span class="hero-mark">rereading</span>.</h1>
+    <p class="lede">Upload your lecture notes. Supermemory breaks them into short, topic-by-topic summaries — and lets you tap into any topic to see it working, not just defined.</p>
+    <div class="hero-cta">
+      <button class="btn" onclick="document.getElementById('demo').scrollIntoView()">Try the demo</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('why').scrollIntoView()">Why we built this</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="num">1</div><div class="cap">test subject so far — web dev</div></div>
+      <div><div class="num">11</div><div class="cap">HTML tags summarized in v1</div></div>
+      <div><div class="num">3</div><div class="cap">students building it between exams</div></div>
+    </div>
+  </section>
+
+  <section id="demo" class="sheet">
+    <div class="tick" style="top: 92px;"></div>
+    <div class="section-head">
+      <h2>Upload notes. Get a page you can tap through.</h2>
+      <p>Our first test case: a full set of HTML lecture notes, turned into a summary of every tag. Pick one from the list — the panel on the right shows a plain-language explanation and the tag actually working.</p>
+    </div>
+
+    <div class="demo-frame">
+      <div class="demo-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span class="fname">web-dev-notes.html</span>&nbsp;→ summarized
+      </div>
+      <div class="demo-body">
+        <nav class="tag-list" id="tagList"></nav>
+        <div class="tag-detail" id="tagDetail"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why" class="sheet">
+    <div class="tick" style="top: 92px;"></div>
+    <div class="why-body">
+      <div>
+        <h2 style="margin-bottom: 20px;">Why we built this</h2>
+        <p>Rereading a semester's worth of notes before an exam is slow, and it's easy to zone out halfway down the page. Most of what's in there is a definition you already half-know — what's missing is seeing it actually work.</p>
+        <p>Supermemory compresses long notes into short summaries, one topic at a time, and pairs each one with a real, working example. Less rereading, more sticking.</p>
+        <p class="signoff">— built by Sanuthi, Pahandi &amp; Binara, for our own classes.</p>
+      </div>
+      <div class="before-after">
+        <div class="ba-row before">
+          <div class="ba-tag">page 14 of web-dev-notes.pdf</div>
+          "...the anchor element, denoted &lt;a&gt;, is an inline element used to define a hyperlink, which is used to link from one page to another, and requires the href attribute to specify the destination url. anchor tags can wrap..."
+        </div>
+        <div class="ba-row after">
+          <div class="ba-after-tag">&lt;a&gt;</div>
+          <div class="ba-after-def">Turns text into something clickable that jumps somewhere else. Tap to see it link.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="tick" style="top: 92px;"></div>
+    <div class="section-head">
+      <h2>Where this is at</h2>
+      <p>Very early. We're starting with our own coursework and expanding from there.</p>
+    </div>
+    <div class="roadmap">
+      <div class="step">
+        <div></div>
+        <div><h4>HTML notes, summarized</h4><p>Every tag from our web dev module, with a live example — the version you're looking at now.</p></div>
+      </div>
+      <div class="step current">
+        <div></div>
+        <div><h4>Upload your own notes</h4><p>Drop in a file instead of using our test set, for any subject with something concrete to demonstrate.</p></div>
+      </div>
+      <div class="step">
+        <div></div>
+        <div><h4>Beyond code</h4><p>Extending the "tap to see it work" idea to subjects that aren't code — still figuring out what an example looks like there.</p></div>
+      </div>
+    </div>
+
+    <div class="credits">
+      <div>Built by <span class="names">Sanuthi, Pahandi &amp; Binara</span></div>
+      <div>shared in case it helps others too</div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="sheet">
+  supermemory — a university side project, not a finished product yet.
+</footer>
+
+<script>
+const TAGS = [
+  { group: "Structure", tag: "h1", label: "Heading", summary: "The biggest, boldest title on a page. Used once, for the main heading — smaller headings use h2, h3 and so on.",
+    example: '<h1>Study Smarter</h1>', code: '<h1>Study Smarter</h1>' },
+  { group: "Structure", tag: "div", label: "Div", summary: "An invisible box with no meaning of its own — used to group other elements together so they can be styled or positioned as a unit.",
+    example: '<div class="divdemo">notes section</div><div class="divdemo">flashcards section</div>', code: '<div>notes section</div>\n<div>flashcards section</div>' },
+  { group: "Text", tag: "p", label: "Paragraph", summary: "A block of regular running text — the default container for a sentence or a few.",
+    example: '<p>The mitochondria is the powerhouse of the cell.</p>', code: '<p>The mitochondria is the powerhouse of the cell.</p>' },
+  { group: "Text", tag: "strong / em", label: "Emphasis", summary: "strong makes a word carry more weight (usually bold); em gives it a spoken emphasis (usually italic).",
+    example: '<p>This part is <strong>important</strong>, this part is <em>just a note</em>.</p>', code: '<p>This part is <strong>important</strong>,\nthis part is <em>just a note</em>.</p>' },
+  { group: "Lists", tag: "ul / li", label: "Unordered list", summary: "Bullet points, for items where order doesn't matter — each li is one item inside the ul.",
+    example: '<ul><li>Read the notes</li><li>Make flashcards</li><li>Test yourself</li></ul>', code: '<ul>\n  <li>Read the notes</li>\n  <li>Make flashcards</li>\n  <li>Test yourself</li>\n</ul>' },
+  { group: "Media", tag: "img", label: "Image", summary: "Drops a picture into the page from a file or a URL. The alt text describes it for anyone who can't see it.",
+    example: '<div class="imgbox">image: "diagram of a cell"</div>', code: '<img src="cell.png" alt="diagram of a cell">' },
+  { group: "Tables", tag: "table", label: "Table", summary: "Rows and columns of cells — the right shape when you're comparing several things against the same attributes.",
+    example: '<table><tr><th>Tag</th><th>Type</th></tr><tr><td>p</td><td>text</td></tr><tr><td>img</td><td>media</td></tr></table>', code: '<table>\n  <tr><th>Tag</th><th>Type</th></tr>\n  <tr><td>p</td><td>text</td></tr>\n</table>' },
+  { group: "Interactive", tag: "a", label: "Link", summary: "Turns text (or anything) into something clickable that jumps to another page or place, set by the href attribute.",
+    example: '<a href="#">Open my notes</a>', code: '<a href="/notes">Open my notes</a>' },
+  { group: "Interactive", tag: "button", label: "Button", summary: "Something a person presses to trigger an action — submitting a form, revealing an answer, anything.",
+    example: '<button onclick="this.textContent=\'42\'">Reveal answer</button>', code: '<button>Reveal answer</button>' },
+  { group: "Interactive", tag: "input", label: "Input", summary: "A box someone can type into — an answer, a search term, an email address, depending on its type.",
+    example: '<input placeholder="Type your answer">', code: '<input type="text" placeholder="Type your answer">' },
+  { group: "Interactive", tag: "form", label: "Form", summary: "Wraps inputs and a button together so the whole group can be submitted as one unit.",
+    example: '<form onsubmit="event.preventDefault()"><input placeholder="Search notes"><button>Go</button></form>', code: '<form>\n  <input placeholder="Search notes">\n  <button>Go</button>\n</form>' },
+];
+
+const listEl = document.getElementById('tagList');
+const detailEl = document.getElementById('tagDetail');
+
+let lastGroup = null;
+TAGS.forEach((t, i) => {
+  if (t.group !== lastGroup){
+    const g = document.createElement('div');
+    g.className = 'tag-group-label';
+    g.textContent = t.group;
+    listEl.appendChild(g);
+    lastGroup = t.group;
+  }
+  const b = document.createElement('button');
+  b.className = 'tag-item';
+  b.textContent = '<' + t.tag + '>';
+  b.dataset.index = i;
+  b.addEventListener('click', () => selectTag(i));
+  listEl.appendChild(b);
+});
+
+function selectTag(i){
+  const t = TAGS[i];
+  document.querySelectorAll('.tag-item').forEach(el => el.classList.remove('active'));
+  document.querySelector('.tag-item[data-index="' + i + '"]').classList.add('active');
+
+  detailEl.innerHTML = `
+    <div class="tag-name">&lt;${t.tag}&gt;</div>
+    <h3>${t.label}</h3>
+    <p class="summary">${t.summary}</p>
+    <div class="example-label">live example</div>
+    <div class="example-box">${t.example}</div>
+    <div class="example-label">markup</div>
+    <div class="code-line">${t.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+  `;
+}
+
+selectTag(0);
+</script>
+
+</body>
+</html>
