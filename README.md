@@ -4,7 +4,7 @@ Supermemory turns your lecture notes into a clean, interactive study page. Uploa
 Tap on any topic to see a real example, so you're not just reading a definition but actually seeing how it works.
 Example
 Our first version uses Web Dev notes as a test case:
-
+ 
 Uploads a full set of HTML notes 
 Generates a summary page listing all HTML tags  
 Tap any tag → see a live example of it in action 
